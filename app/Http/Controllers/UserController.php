@@ -24,7 +24,7 @@ class UserController extends Controller
         $list = User::query()->when(!empty($filters['keyword']), function ($q) use ($filters) {
             $q->orWhere('name', 'like', '%' . $filters['keyword'] . '%');
             $q->orWhere('email', 'like', '%' . $filters['keyword'] . '%');
-        })->filterSort($filters)->paginate(2);
+        })->filterSort($filters)->paginate(config('table.per_page'));
 
         return Inertia::render('User/Index', [
             'header' => User::header(),

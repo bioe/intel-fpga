@@ -21,13 +21,8 @@ return [
                     'route' => 'users.index'
                 ],
                 [
-                    'title' => 'Profile',
-                    'submenus' => [
-                        [
-                            'title' => 'Edit Profile',
-                            'route' => 'profile.edit'
-                        ]
-                    ]
+                    'title' => 'Product Types',
+                    'route' => 'product_types.index'
                 ],
             ]
 

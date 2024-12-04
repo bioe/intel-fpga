@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -41,6 +42,7 @@ Route::middleware('auth', 'admin')->group(function () {
         Route::patch('menu/{id}', [UserController::class, 'patchMenu'])->name('menu.update');
     });
     Route::resource('users', UserController::class);
+    Route::resource('product_types', ProductTypeController::class);
 });
 
 require __DIR__ . '/auth.php';
