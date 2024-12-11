@@ -15,8 +15,8 @@ const props = defineProps({
     },
 });
 
-const routeGroupName = 'product_types';
-const headerTitle = ref('Product Type');
+const routeGroupName = 'lira';
+const headerTitle = ref('Lira');
 
 const form = useForm({
     name: props.data.name ?? '',
@@ -40,7 +40,6 @@ const form = useForm({
                         <li class="nav-item">
                             <a class="nav-link active" data-bs-toggle="tab" href="#tab_1">Details</a>
                         </li>
-                       
                     </ul>
                 </div>
                 <div class="card-body">

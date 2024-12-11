@@ -77,6 +77,8 @@ class ProductTypeController extends Controller
     public function update(ProductTypeUpdateRequest $request, ProductType $productType = null)
     {
         $data = $request->validated();
+        $data['user_id'] = auth()->id();
+        
         if (null === $productType) {
             $data = ProductType::create($data);
             return Redirect::route('product_types.edit', $data->id)->with('message', 'Product Type created successfully');

@@ -13,16 +13,21 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
+    products: {
+        type: Object,
+        default: () => ({}),
+    },
 });
 
-const routeGroupName = 'product_types';
-const headerTitle = ref('Product Type');
+const routeGroupName = 'product_groups';
+const headerTitle = ref('Product Group');
+
 
 const form = useForm({
     name: props.data.name ?? '',
-    active: props.data.active,
+    active: props.data.active ?? false,  
+    product_id: props.data.product_id ?? null, 
 });
-
 </script>
 
 <template>
@@ -40,7 +45,6 @@ const form = useForm({
                         <li class="nav-item">
                             <a class="nav-link active" data-bs-toggle="tab" href="#tab_1">Details</a>
                         </li>
-                       
                     </ul>
                 </div>
                 <div class="card-body">
@@ -49,8 +53,29 @@ const form = useForm({
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <InputLabel for="name" value="Name" />
-                                    <TextInput id="name" type="text" v-model="form.name" :invalid="form.errors.name" required />
+                                    <TextInput id="name" type="text" v-model="form.name" :invalid="form.errors.name"  />
                                     <InputError :message="form.errors.name" />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <InputLabel for="product_id" value="Product" />
+                                    <select
+                                        id="product_id"
+                                        v-model="form.product_id"
+                                        class="form-select"
+                                        :invalid="form.errors.product_id"
+                                        required
+                                    >
+                                        <option :value=null>Select Product</option>
+                                        <option
+                                            v-for="(name, id) in products"
+                                            :key="id"
+                                            :value="id"
+                                        >
+                                            {{ name }}
+                                        </option>
+                                    </select>
+                                    <InputError :message="form.errors.product_id" />
                                 </div>
                                 
                                 <div class="col-12">
@@ -58,10 +83,8 @@ const form = useForm({
                                         Active
                                     </Checkbox>
                                 </div>
-
                             </div>
                         </div>
-                       
                     </div>
                 </div>
                 <div class="card-footer">

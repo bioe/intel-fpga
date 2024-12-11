@@ -13,16 +13,25 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
+    productTypes: {
+        type: Object,
+        default: () => ({}),
+    },
+    errors: {
+        type: Array,
+        default: [],
+    },
 });
 
-const routeGroupName = 'product_types';
-const headerTitle = ref('Product Type');
+const routeGroupName = 'products';
+const headerTitle = ref('Product');
 
 const form = useForm({
     name: props.data.name ?? '',
-    active: props.data.active,
+    active: props.data.active ?? false,
+    user_id: props.data.user_id ?? null, 
+    product_type_id: props.data.product_type_id ?? null, 
 });
-
 </script>
 
 <template>
@@ -32,7 +41,16 @@ const form = useForm({
         <template #header>
             {{ headerTitle }} 
         </template>
-
+        
+        <template>
+        <div v-if="errors.length">
+            <div class="alert alert-danger">
+            <ul>
+                <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+            </ul>
+            </div>
+        </div>
+        </template>
         <form @submit.prevent="data.id == null ? form.post(route(routeGroupName + '.store')) : form.patch(route(routeGroupName + '.update', data.id))">
             <div class="card">
                 <div class="card-header">
@@ -40,7 +58,6 @@ const form = useForm({
                         <li class="nav-item">
                             <a class="nav-link active" data-bs-toggle="tab" href="#tab_1">Details</a>
                         </li>
-                       
                     </ul>
                 </div>
                 <div class="card-body">
@@ -52,16 +69,34 @@ const form = useForm({
                                     <TextInput id="name" type="text" v-model="form.name" :invalid="form.errors.name" required />
                                     <InputError :message="form.errors.name" />
                                 </div>
+                                <div class="col-md-6">
+                                    <InputLabel for="product_type_id" value="Product Type" />
+                                    <select
+                                        id="product_type_id"
+                                        v-model="form.product_type_id"
+                                        class="form-select"
+                                        :invalid="form.errors.product_type_id"
+                                        required
+                                    >
+                                        <option :value=null>Select Product Type</option>
+                                        <option
+                                            v-for="(name, id) in productTypes"
+                                            :key="id"
+                                            :value="id"
+                                        >
+                                            {{ name }}
+                                        </option>
+                                    </select>
+                                    <InputError :message="form.errors.product_type_id" />
+                                </div>
                                 
                                 <div class="col-12">
                                     <Checkbox id="checkActive" v-model:checked="form.active">
                                         Active
                                     </Checkbox>
                                 </div>
-
                             </div>
                         </div>
-                       
                     </div>
                 </div>
                 <div class="card-footer">
