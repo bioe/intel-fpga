@@ -38,6 +38,10 @@ return [
                 ],
             ]
 
-        ]
+        ],
+        [
+            'title' => 'Line Item Manager',
+            'route' => 'lineitem_managers.index'
+        ],
     ]
 ];

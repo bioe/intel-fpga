@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Schema;
 
 class Lira extends BaseModel
 {
@@ -70,6 +71,13 @@ class Lira extends BaseModel
         'lira_batch_id',
     ];
 
+    public function getTableColumns()
+    {
+        $excludedColumns = ['id', 'created_at', 'updated_at', 'deleted_at', 'lira_batch_id'];
+        $columns = Schema::getColumnListing($this->getTable());
+        return array_values(array_diff($columns, $excludedColumns));
+    }
+
     /*
     * Build Table Header
     */
@@ -86,6 +94,4 @@ class Lira extends BaseModel
     {
         return $this->belongsTo(LiraBatch::class);
     }
-
-
 }

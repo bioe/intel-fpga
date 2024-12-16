@@ -1,11 +1,12 @@
 <?php
+
+use App\Http\Controllers\LineItemManagerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGroupController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LiraController;
 use App\Http\Controllers\UserController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -50,6 +51,8 @@ Route::middleware('auth', 'admin')->group(function () {
 
     Route::post('/lira/import', [LiraController::class, 'import'])->name('lira.import');
     Route::resource('lira', LiraController::class);
+
+    Route::resource('lineitem_managers', LineItemManagerController::class);
 });
 
 require __DIR__ . '/auth.php';
