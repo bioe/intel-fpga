@@ -15,8 +15,8 @@ const props = defineProps({
     },
 });
 
-const routeGroupName = 'lira';
-const headerTitle = ref('Lira');
+const routeGroupName = 'speed';
+const headerTitle = ref('Speed');
 
 const form = useForm({
     name: props.data.name ?? '',

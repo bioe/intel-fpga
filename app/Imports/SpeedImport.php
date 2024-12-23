@@ -2,28 +2,27 @@
 
 namespace App\Imports;
 
-use App\Models\Lira;
-use App\Models\LiraBatch;
+use App\Models\Speed;
+use App\Models\SpeedBatch;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
 
-class LiraImport implements ToCollection, WithHeadingRow, WithValidation
+class SpeedImport implements ToCollection, WithHeadingRow, WithValidation
 {
     protected $errors = [];
 
     /**
-    * @param Collection $collection
-    */
+     * @param Collection $collection
+     */
     public function collection(Collection $collection)
     {
-        $liraBatch = LiraBatch::create(['user_id' => auth()->id()]);
-    
-        foreach ($collection as $row) 
-        {
-            Lira::create([
+        $liraBatch = SpeedBatch::create(['user_id' => auth()->id()]);
+
+        foreach ($collection as $row) {
+            Speed::create([
                 'external_revision' => $row['external_revision'] ?? null,
                 'spec_code' => $row['spec_code'] ?? null,
                 'spec_sequential_number' => $row['spec_sequential_number'] ?? null,
@@ -51,18 +50,18 @@ class LiraImport implements ToCollection, WithHeadingRow, WithValidation
                 'pp_steering_committee' => $row['pp_steering_committee'] ?? null,
                 'pb_free' => $row['pb_free'] ?? null,
                 'custom_indicator' => $row['custom_indicator'] ?? null,
-                'customer_custom_product' => $row['customer_custom_product'] ? (int)$row['customer_custom_product'] : null,                                                       
+                'customer_custom_product' => $row['customer_custom_product'] ? (int)$row['customer_custom_product'] : null,
                 'package_platform' => $row['package_platform'] ?? null,
                 'package_text' => $row['package_text'] ?? null,
                 'shipment_media' => $row['shipment_media'] ?? null,
-                'trademark_family_name' => $row['trademarkfamily_name'] ?? null, 
+                'trademark_family_name' => $row['trademarkfamily_name'] ?? null,
                 'fab_process' => $row['fab_process'] ?? null,
                 'internal_stepping' => $row['internal_stepping'] ?? null,
                 'speed_type' => $row['speed_type'] ?? null,
                 'external_product_id' => $row['external_product_id'] ?? null,
-                'speed' => (double)$row['speed'] ?? null,
+                'speed' => (float)$row['speed'] ?? null,
                 'die_code_name' => $row['die_code_name'] ?? null,
-                'cust_part_no' => $row['cust_part_no'] ?? null,  
+                'cust_part_no' => $row['cust_part_no'] ?? null,
                 'royalty_technology' => $row['royalty_technology'] ?? null,
                 'comments' => $row['comments'] ?? null,
                 'engineering_efforts' => $row['engineering_efforts'] ?? null,
@@ -83,8 +82,8 @@ class LiraImport implements ToCollection, WithHeadingRow, WithValidation
                 'mm' => $row['mm'] ?? null,
                 'package_type' => $row['package_type'] ?? null,
                 'qdf_sspec' => $row['qdfsspec'] ?? null,
-                'sample_production_type' => $row['sampleproduction_type'] ?? null, 
-                'lira_batch_id' => $liraBatch->id,
+                'sample_production_type' => $row['sampleproduction_type'] ?? null,
+                'speed_batch_id' => $liraBatch->id,
             ]);
         }
     }
@@ -92,15 +91,15 @@ class LiraImport implements ToCollection, WithHeadingRow, WithValidation
     public function headingRow(): int
     {
         return 2;
-    }   
+    }
 
-     /**
+    /**
      * Define validation rules.
      */
     public function rules(): array
     {
         return [
-            'external_revision' => 'nullable|integer|min:0|max:255', 
+            'external_revision' => 'nullable|integer|min:0|max:255',
             'spec_code' => 'nullable|string|max:10',
             'spec_sequential_number' => 'nullable|string|max:10',
             'external_step' => 'nullable|string|max:10',
@@ -109,17 +108,17 @@ class LiraImport implements ToCollection, WithHeadingRow, WithValidation
             'internal_rev_step' => 'nullable|string|max:10',
             'ic_category_type' => 'nullable|string|max:30',
             'item_market_name' => 'nullable|string|max:20',
-            'pincount' => 'nullable|integer|min:-32768|max:32767', 
+            'pincount' => 'nullable|integer|min:-32768|max:32767',
             'market_code_name' => 'nullable|string|max:30',
             'previous_reference_id' => 'nullable|string|max:20',
             'product_grade' => 'nullable|string|max:10',
             'power_grade' => 'nullable|string|max:10',
             'transceiver_tile_config' => 'nullable|string|max:10',
-            'transceiver_count' => 'nullable|integer|min:0|max:255', 
+            'transceiver_count' => 'nullable|integer|min:0|max:255',
             'transceiver_speed_ratio' => 'nullable|integer|min:0|max:255',
             'core_speed_ratio' => 'nullable|integer|min:0|max:255',
             'product_variant' => 'nullable|string|max:10',
-            'density' => 'nullable|integer|min:0|max:65535', 
+            'density' => 'nullable|integer|min:0|max:65535',
             'density_uom' => 'nullable|string|max:10',
             'voltage_io' => 'nullable|numeric',
             'programmed_ind' => 'nullable|string|max:5',
@@ -143,17 +142,17 @@ class LiraImport implements ToCollection, WithHeadingRow, WithValidation
             'comments' => 'nullable|string',
             'engineering_efforts' => 'nullable|string',
             'sub_component_category_name' => 'nullable|string|max:10',
-            'rldram_iii_mhz' => 'nullable|integer|min:0|max:65535', 
-            'lvds_gbps' => 'nullable|numeric|min:0|max:999999.99', 
-            'mlab_simple_dual_port_mhz' => 'nullable|integer|min:0|max:65535', 
-            'mlab_true_dual_port_mhz' => 'nullable|integer|min:0|max:65535', 
-            'lutram_mhz' => 'nullable|integer|min:0|max:65535', 
-            'dsp_fixed_point_mode_mhz' => 'nullable|integer|min:0|max:65535', 
-            'dsp_floating_point_mode_mhz' => 'nullable|integer|min:0|max:65535', 
-            'maib_mhz' => 'nullable|integer|min:0|max:65535', 
-            'esram_mhz' => 'nullable|integer|min:0|max:65535', 
-            'hps_mhz_rate' => 'nullable|integer|min:0|max:65535', 
-            'ddr4_freq' => 'nullable|integer|min:0|max:65535', 
+            'rldram_iii_mhz' => 'nullable|integer|min:0|max:65535',
+            'lvds_gbps' => 'nullable|numeric|min:0|max:999999.99',
+            'mlab_simple_dual_port_mhz' => 'nullable|integer|min:0|max:65535',
+            'mlab_true_dual_port_mhz' => 'nullable|integer|min:0|max:65535',
+            'lutram_mhz' => 'nullable|integer|min:0|max:65535',
+            'dsp_fixed_point_mode_mhz' => 'nullable|integer|min:0|max:65535',
+            'dsp_floating_point_mode_mhz' => 'nullable|integer|min:0|max:65535',
+            'maib_mhz' => 'nullable|integer|min:0|max:65535',
+            'esram_mhz' => 'nullable|integer|min:0|max:65535',
+            'hps_mhz_rate' => 'nullable|integer|min:0|max:65535',
+            'ddr4_freq' => 'nullable|integer|min:0|max:65535',
             'external_stepping' => 'nullable|string|max:10',
             'l4_forecast_name' => 'nullable|string|max:255',
             'mm' => 'nullable|string|max:20',

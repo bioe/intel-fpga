@@ -21,8 +21,8 @@ return [
                     'route' => 'users.index'
                 ],
                 [
-                    'title' => 'Lira',
-                    'route' => 'lira.index'
+                    'title' => 'Speed',
+                    'route' => 'speed.index'
                 ],
                 [
                     'title' => 'Product Types',

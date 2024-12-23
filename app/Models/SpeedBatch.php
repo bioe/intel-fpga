@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LiraBatch extends Model
+class SpeedBatch extends Model
 {
     use HasFactory;
 
-    protected $table = 'lira_batchs';
+    protected $table = 'speed_batch';
 
     protected $fillable = [
         'user_id',
@@ -20,9 +20,9 @@ class LiraBatch extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function lira()
+    public function speed()
     {
-        return $this->hasMany(Lira::class);
+        return $this->hasMany(Speed::class);
     }
 
     /*

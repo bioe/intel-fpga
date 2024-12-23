@@ -16,7 +16,7 @@ const form = useForm({
 });
 
 const upload = () => {
-    form.post(route('lira.import'), {
+    form.post(route('speed.import'), {
         preserveScroll: true,
         onSuccess: () => closeModal(),
         onFinish: () => resetInput(),

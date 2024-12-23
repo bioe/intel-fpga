@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lira', function (Blueprint $table) {
-            $table->id(); 
+        Schema::create('speed', function (Blueprint $table) {
+            $table->id();
             $table->unsignedTinyInteger('external_revision')->nullable();
             $table->string('spec_code', 10)->nullable();
             $table->string('spec_sequential_number', 10)->nullable();
@@ -54,7 +54,7 @@ return new class extends Migration
             $table->string('cust_part_no', 20)->nullable();
             $table->string('royalty_technology')->nullable();
             $table->text('comments')->nullable();
-            $table->text('engineering_efforts')->nullable();	
+            $table->text('engineering_efforts')->nullable();
             $table->string('sub_component_category_name', 10)->nullable();
             $table->unsignedSmallInteger('rldram_iii_mhz')->nullable();
             $table->decimal('lvds_gbps', 8, 2)->nullable();
@@ -73,8 +73,8 @@ return new class extends Migration
             $table->string('package_type')->nullable();
             $table->string('qdf_sspec', 10)->nullable();
             $table->string('sample_production_type', 20)->nullable();
-            $table->unsignedBigInteger('lira_batch_id')->nullable();
-            $table->timestamps(); 
+            $table->unsignedBigInteger('speed_batch_id')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -83,6 +83,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lira');
+        Schema::dropIfExists('speed');
     }
 };

@@ -5,7 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGroupController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\LiraController;
+use App\Http\Controllers\SpeedController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -49,8 +49,8 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::resource('products', ProductController::class);
     Route::resource('product_groups', ProductGroupController::class);
 
-    Route::post('/lira/import', [LiraController::class, 'import'])->name('lira.import');
-    Route::resource('lira', LiraController::class);
+    Route::post('/speed/import', [SpeedController::class, 'import'])->name('speed.import');
+    Route::resource('speed', SpeedController::class);
 
     Route::resource('lineitem_managers', LineItemManagerController::class);
 });

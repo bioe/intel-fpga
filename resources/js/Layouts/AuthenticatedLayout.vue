@@ -171,7 +171,7 @@ onMounted(() => {
         </div>
     -->
 
-    <main class="container">
+    <main class="container-fluid">
         <h2 class="my-2 lh-sm" v-if="$slots.header">
             <slot name="header" />
         </h2>

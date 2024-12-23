@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LineItemManagerUpdateRequest;
 use App\Models\LineitemManager;
-use App\Models\Lira;
+use App\Models\Speed;
 use App\Models\Product;
 use App\Models\ProductGroup;
 use Illuminate\Http\Request;
@@ -65,7 +65,7 @@ class LineItemManagerController extends Controller
         $products = Product::pluck('name', 'id');
         $productGroups = ProductGroup::pluck('name', 'id');
         $modules = ['LIRA Data (Speed)'];
-        $columns = (new Lira)->getTableColumns();
+        $columns = (new Speed)->getTableColumns();
 
         if (null === $lineitemManager) {
             $data = new LineitemManager;

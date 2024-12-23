@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Schema;
 
-class Lira extends BaseModel
+class Speed extends BaseModel
 {
-    protected $table = 'lira';
+    protected $table = 'speed';
 
     protected $fillable = [
         'external_revision',
@@ -68,12 +68,12 @@ class Lira extends BaseModel
         'package_type',
         'qdf_sspec',
         'sample_production_type',
-        'lira_batch_id',
+        'speed_batch_id',
     ];
 
     public function getTableColumns()
     {
-        $excludedColumns = ['id', 'created_at', 'updated_at', 'deleted_at', 'lira_batch_id'];
+        $excludedColumns = ['id', 'created_at', 'updated_at', 'deleted_at', 'speed_batch_id'];
         $columns = Schema::getColumnListing($this->getTable());
         return array_values(array_diff($columns, $excludedColumns));
     }
@@ -90,8 +90,8 @@ class Lira extends BaseModel
         ]);
     }
 
-    public function liraBatch()
+    public function speedBatch()
     {
-        return $this->belongsTo(LiraBatch::class);
+        return $this->belongsTo(SpeedBatch::class);
     }
 }
